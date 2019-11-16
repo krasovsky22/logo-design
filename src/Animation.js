@@ -1,48 +1,64 @@
 import anime from 'animejs'
 
-anime.timeline({loop: true})
-  .add({
-    targets: '.ml8 .circle-white',
-    scale: [0, 3],
-    opacity: [1, 0],
-    easing: "easeInOutExpo",
-    rotateZ: 360,
-    duration: 1100
-  }).add({
-  targets: '.ml8 .circle-container',
-  scale: [0, 1],
-  duration: 1100,
-  easing: "easeInOutExpo",
-  offset: '-=1000'
-}).add({
-  targets: '.ml8 .circle-dark',
-  scale: [0, 1],
-  duration: 1100,
-  easing: "easeOutExpo",
-  offset: '-=600'
-}).add({
-  targets: '.ml8 .letters-left',
-  scale: [0, 1],
-  duration: 1200,
-  offset: '-=550'
-}).add({
-  targets: '.ml8 .bang',
-  scale: [0, 1],
-  rotateZ: [45, 15],
-  duration: 1200,
-  offset: '-=1000'
-}).add({
-  targets: '.ml8',
-  opacity: 0,
-  duration: 1000,
-  easing: "easeOutExpo",
-  delay: 1400
-});
+function delay(t) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(function () {
+      resolve();
+    }, t);
+  });
+}
 
-anime({
-  targets: '.ml8 .circle-dark-dashed',
-  rotateZ: 360,
-  duration: 8000,
-  easing: "linear",
-  loop: true
-});
+const Animation = async () => {
+  anime.timeline({ loop: false })
+    .add({
+      targets: '.ml8 .circle-white',
+      scale: [0, 2],
+      opacity: [1, 0.5],
+      easing: "easeInOutExpo",
+      rotateZ: 180,
+      duration: 1000
+    })
+    .add({
+      targets: '.ml8 .circle-white',
+      scale: [2, 1],
+      opacity: [0.5, 1],
+      easing: "easeInOutExpo",
+      rotateZ: 360,
+      duration: 1000
+    })
+    .add({
+      targets: '.ml8 .circle-container',
+      scale: [0, 1],
+      duration: 600,
+      easing: "easeInOutExpo",
+      offset: '-=1000'
+    })
+    .add({
+      targets: '.ml8 .letters-left',
+      scale: [0, 1],
+      duration: 600,
+      offset: '-=550'
+    });
+
+  await delay(2000);
+
+  anime({
+    targets: '.ml8 .circle-white',
+    rotateZ: 0,
+    duration: 8000,
+    easing: "linear",
+    loop: true,
+  });
+
+  anime({
+    targets: '.ml8 .circle-dark-dashed',
+    rotateZ: 360,
+    duration: 8000,
+    easing: "linear",
+    loop: true
+  });
+
+  await delay(200);
+};
+
+export default Animation;
